@@ -1,0 +1,20 @@
+[실행 메모]
+
+1. 실행 명령
+   python app.py
+
+2. 사용한 Ollama 모델명
+   coolsoon/kanana-1.5-8b:latest
+
+3. 생성한 파일 목록
+   - app.py (Flask 백엔드 및 FAQ 매칭 알고리즘)
+   - index.html (반응형 모던 다크 테마 웹 UI)
+   - memo.txt (실행 메모 본 파일)
+   - capture_query1.png (질문 1에 대한 실행 응답 화면 캡처)
+   - capture_query2.png (질문 2에 대한 실행 응답 화면 캡처)
+
+4. 로컬 FAQ 응답 도구 구축 및 실행 플랜
+   - [설계 단계]: model_config.json 및 faq_context.xml 로드 구조 파악, 오프라인 환경에 맞춰 별도 라이브러리 없이 순수 파이썬 정규식을 활용해 문장에서 조사를 분리·제거하는 경량 한국어 키워드 추출기 설계 및 토픽(3점)/키워드(2점)/본문(1점) 기반 FAQ 가중치 매칭 유사도 알고리즘 설계.
+   - [백엔드 구현 (app.py)]: Flask 웹 프레임워크 기반 API 엔드포인트 설계. 로컬 Ollama 모델 조회 API(/api/tags) 연동을 통해 권장 모델 부재 시 로컬 가용 모델(coolsoon/kanana-1.5-8b:latest)로 자동 Fallback되도록 설계하고, 최초 모델 적재 시 발생하는 Read Timeout 에러를 차단하기 위해 HTTP POST 타임아웃을 180초로 연장 적용.
+   - [프론트엔드 구현 (index.html)]: 외부 CDN 사용을 전면 금지한 오프라인 단일 파일 배포 형식으로, 순수 HTML/CSS/JS만을 활용한 다크 블루 톤의 글래스모피즘(Glassmorphism) 프리미엄 UI 디자인 적용. 질문 1·2를 즉시 로드할 수 있는 퀵 카드 제공, 로딩 스피너 애니메이션, 매칭된 FAQ(ID 및 담당부서) 출력 카드 및 개인정보 경고 배너 별도 렌더링 영역 구성.
+   - [검증 및 캡처 단계]: Flask 서버를 백그라운드로 로컬 구동하고, 브라우저를 연결하여 질문 1과 질문 2에 대해 실제 로컬 LLM 응답 생성을 유도함. 답변에 매칭된 FAQ ID(FAQ-001, FAQ-002)와 부서명이 정상적으로 노출되는 것을 확인 후 각각 브라우저 전체 화면을 캡처(capture_query1.png, capture_query2.png)하여 최종 산출 폴더에 보관.

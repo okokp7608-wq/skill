@@ -1,0 +1,13 @@
+{
+  "ollama_base_url": "http://localhost:11434",
+  "recommended_model": "gemma3:1b",
+  "recommended_models": [
+    "gemma3:1b",
+    "gemma3:4b",
+    "gemma3:270m"
+  ],
+  "temperature": 0.2,
+  "num_predict": 160,
+  "num_ctx": 2048,
+  "answer_rule": "FAQ 근거만 사용해 5문장 이내로 답변한다. 앱 화면에는 선택한 FAQ ID, 담당부서, 개인정보 입력 금지 안내를 별도로 표시한다."
+}
